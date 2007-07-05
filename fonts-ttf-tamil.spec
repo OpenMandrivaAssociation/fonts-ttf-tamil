@@ -1,7 +1,7 @@
 Summary:	Tamil TTF fonts (Unicode encoded)
 Name:		fonts-ttf-tamil
 Version:	1.1
-Release:	%mkrel 4
+Release:	%mkrel 5
 
 Url:		http://www.tamil.net/tscii/tools.html#fonts
 # from http://groups.yahoo.com/group/tamilinix/files/
@@ -16,8 +16,6 @@ Group:		System/Fonts/True type
 BuildArch:	noarch
 BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	freetype-tools
-Requires(post):	chkfontpath
-Requires(postun):chkfontpath
 Requires(post):	fontconfig
 Requires(postun):fontconfig
 
@@ -29,8 +27,6 @@ engines like pango etc.
 Url:		http://www.geocities.com/avarangal/
 Summary:		Tamil TTF fonts (TSCII encoded)
 Group:		System/Fonts/True type	
-Requires(post):		chkfontpath
-Requires(postun):	chkfontpath
 Requires(post):		fontconfig
 Requires(postun):	fontconfig
 
@@ -43,8 +39,6 @@ which is wrong, but currently the only way to make Tamil TSCII work.
 Summary:	Tamil Bitmap fonts
 Group:		System/Fonts/X11 bitmap
 License:	GPL
-Requires(post):		chkfontpath
-Requires(postun):	chkfontpath
 Requires(post):		fontconfig
 Requires(postun):	fontconfig
 %description -n fonts-bitmap-tscii
@@ -101,18 +95,22 @@ cd %buildroot/%_datadir/fonts/bitmap/tscii
 cp fonts.dir fonts.scale
 )
 
+mkdir -p %{buildroot}%_sysconfdir/X11/fontpath.d/
+for dir in tamil tscii; do
+	ln -s ../../..%_datadir/fonts/TTF/$dir \
+		%{buildroot}%_sysconfdir/X11/fontpath.d/ttf-$dir:pri=50
+done
+ln -s ../../..%_datadir/fonts/TTF/bitmap/tscii \
+	%{buildroot}%_sysconfdir/X11/fontpath.d/bitmap-tscii:pri=50
+
+
 %post -n fonts-ttf-tamil
-touch %{_datadir}/fonts/TTF
 [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
 
 %post -n fonts-ttf-tscii
-[ -x %_sbindir/chkfontpath ] && %_sbindir/chkfontpath -q -a %_datadir/fonts/TTF/tscii
-touch %{_datadir}/fonts/TTF
 [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
 
 %post -n fonts-bitmap-tscii
-[ -x %_sbindir/chkfontpath ] && %_sbindir/chkfontpath -q -a %_datadir/fonts/bitmap/tscii
-touch %{_datadir}/fonts/bitmap
 [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
 
 %postun -n fonts-ttf-tamil
@@ -124,16 +122,12 @@ fi
 %postun -n fonts-ttf-tscii
 # 0 means a real uninstall
 if [ "$1" = "0" ]; then
-   [ -x %_sbindir/chkfontpath ] && \
-   %_sbindir/chkfontpath -q -r %_datadir/fonts/TTF/tscii
    [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
 fi
 
 %postun -n fonts-bitmap-tscii
 # 0 means a real uninstall
 if [ "$1" = "0" ]; then
-   [ -x %_sbindir/chkfontpath ] && \
-   %_sbindir/chkfontpath -q -r %_datadir/fonts/bitamp/tscii
    [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
 fi
 
@@ -143,9 +137,9 @@ rm -fr %buildroot
 %files
 %defattr(0644,root,root,0755)
 %doc tamil_opentype_fonts/README
-%dir %_datadir/fonts/TTF/
 %dir %_datadir/fonts/TTF/tamil/
 %_datadir/fonts/TTF/tamil/*.ttf
+%_sysconfdir/X11/fontpath.d/ttf-tamil:pri=50
 
 %files -n fonts-ttf-tscii 
 %defattr(0644,root,root,0755)
@@ -154,6 +148,7 @@ rm -fr %buildroot
 %_datadir/fonts/TTF/tscii/*.ttf
 %config(noreplace) %_datadir/fonts/TTF/tscii/fonts.dir
 %config(noreplace) %_datadir/fonts/TTF/tscii/fonts.scale
+%_sysconfdir/X11/fontpath.d/ttf-tscii:pri=50
 
 %files -n fonts-bitmap-tscii
 %defattr(0644,root,root,0755)
@@ -163,6 +158,6 @@ rm -fr %buildroot
 %_datadir/fonts/bitmap/tscii/*.gz
 %config(noreplace) %_datadir/fonts/bitmap/tscii/fonts.dir
 %config(noreplace) %_datadir/fonts/bitmap/tscii/fonts.scale
-
+%_sysconfdir/X11/fontpath.d/bitmap-tscii:pri=50
 
 
