@@ -1,7 +1,7 @@
 Summary:	Tamil TTF fonts (Unicode encoded)
 Name:		fonts-ttf-tamil
 Version:	1.1
-Release:	%mkrel 6
+Release:	%mkrel 7
 
 Url:		http://www.tamil.net/tscii/tools.html#fonts
 # from http://groups.yahoo.com/group/tamilinix/files/
@@ -100,7 +100,7 @@ for dir in tamil tscii; do
 	ln -s ../../..%_datadir/fonts/TTF/$dir \
 		%{buildroot}%_sysconfdir/X11/fontpath.d/ttf-$dir:pri=50
 done
-ln -s ../../..%_datadir/fonts/TTF/bitmap/tscii \
+ln -s ../../..%_datadir/fonts/bitmap/tscii \
 	%{buildroot}%_sysconfdir/X11/fontpath.d/bitmap-tscii:pri=50
 
 
