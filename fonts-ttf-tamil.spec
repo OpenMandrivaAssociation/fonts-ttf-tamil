@@ -1,7 +1,7 @@
 Summary:	Tamil TTF fonts (Unicode encoded)
 Name:		fonts-ttf-tamil
 Version:	1.1
-Release:	%mkrel 9
+Release:	%mkrel 10
 
 Url:		http://www.tamil.net/tscii/tools.html#fonts
 # from http://groups.yahoo.com/group/tamilinix/files/
@@ -16,8 +16,6 @@ Group:		System/Fonts/True type
 BuildArch:	noarch
 BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	freetype-tools
-Requires(post):	fontconfig
-Requires(postun):fontconfig
 
 %description
 Tamil TTF fonts usable to display Unicode encoded text; through text
@@ -27,8 +25,6 @@ engines like pango etc.
 Url:		http://www.geocities.com/avarangal/
 Summary:		Tamil TTF fonts (TSCII encoded)
 Group:		System/Fonts/True type	
-Requires(post):		fontconfig
-Requires(postun):	fontconfig
 
 %description -n fonts-ttf-tscii
 Tamil TTF fonts in TSCII encoding.
@@ -39,8 +35,6 @@ which is wrong, but currently the only way to make Tamil TSCII work.
 Summary:	Tamil Bitmap fonts
 Group:		System/Fonts/X11 bitmap
 License:	GPL
-Requires(post):		fontconfig
-Requires(postun):	fontconfig
 %description -n fonts-bitmap-tscii
 Tamil bitmap fonts for X11 in TSCII encoding 
 
@@ -103,33 +97,6 @@ done
 ln -s ../../..%_datadir/fonts/bitmap/tscii \
 	%{buildroot}%_sysconfdir/X11/fontpath.d/bitmap-tscii:pri=50
 
-
-%post -n fonts-ttf-tamil
-[ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
-
-%post -n fonts-ttf-tscii
-[ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
-
-%post -n fonts-bitmap-tscii
-[ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
-
-%postun -n fonts-ttf-tamil
-# 0 means a real uninstall
-if [ "$1" = "0" ]; then
-   [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
-fi
-
-%postun -n fonts-ttf-tscii
-# 0 means a real uninstall
-if [ "$1" = "0" ]; then
-   [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
-fi
-
-%postun -n fonts-bitmap-tscii
-# 0 means a real uninstall
-if [ "$1" = "0" ]; then
-   [ -x %{_bindir}/fc-cache ] && %{_bindir}/fc-cache
-fi
 
 %clean
 rm -fr %buildroot
