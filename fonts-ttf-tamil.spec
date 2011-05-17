@@ -14,6 +14,7 @@ Source2:	tamil_opentype_fonts.tar.bz2
 License:	Free
 Group:		System/Fonts/True type
 BuildArch:	noarch
+BuildRequires: fontconfig
 BuildRoot:	%_tmppath/%name-%version-%release-root
 BuildRequires:	freetype-tools
 
