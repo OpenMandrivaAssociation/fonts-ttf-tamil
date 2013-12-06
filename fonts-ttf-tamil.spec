@@ -1,7 +1,7 @@
 Summary:	Tamil TTF fonts (Unicode encoded)
 Name:		fonts-ttf-tamil
 Version:	1.1
-Release:	16
+Release:	17
 License:	Free
 Group:		System/Fonts/True type
 Url:		http://www.tamil.net/tscii/tools.html#fonts
