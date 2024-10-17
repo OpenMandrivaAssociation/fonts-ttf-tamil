@@ -4,7 +4,7 @@ Version:	1.1
 Release:	24
 License:	Free
 Group:		System/Fonts/True type
-Url:		http://www.tamil.net/tscii/tools.html#fonts
+Url:		https://www.tamil.net/tscii/tools.html#fonts
 # from http://groups.yahoo.com/group/tamilinix/files/
 # the suitability for free distribution has been checked by
 # Thuraiappah Vaseeharan <t_vasee@yahoo.com>
@@ -20,7 +20,7 @@ Tamil TTF fonts usable to display Unicode encoded text; through text
 engines like pango etc.
 
 %package -n fonts-ttf-tscii
-Url:		http://www.geocities.com/avarangal/
+Url:		https://www.geocities.com/avarangal/
 Summary:	Tamil TTF fonts (TSCII encoded)
 Group:		System/Fonts/True type	
 
